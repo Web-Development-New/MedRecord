@@ -1,0 +1,92 @@
+<div class="container">
+
+    <nav>
+        <h2>{{ userDetails?.org }} Laboratory</h2>
+        <div class="menu">
+          <h2 nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="menu"><span nz-icon nzType="menu" nzTheme="outline"></span></h2>
+          <nz-dropdown-menu  #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item><span class="icon" nz-icon nzType="idcard" nzTheme="outline"></span> {{userDetails?.userId}}</li>
+                <li nz-menu-item><span class="icon" nz-icon nzType="user" nzTheme="outline"></span> {{userDetails?.name}}</li>
+                <li nz-menu-item nzDanger (click)="logout()"><span class="icon" nz-icon nzType="logout" nzTheme="outline"></span> Logout</li>
+              </ul>
+          </nz-dropdown-menu>
+      </div>
+    </nav>
+
+    <div class="patient-record">
+      
+      <div class="patient-record__header">
+          <h2>Patient Record</h2>
+          <button nz-button nzType="primary" (click)="showModal()">
+              <span nz-icon nzType="plus"></span>
+              Add Record
+          </button>
+      </div>
+
+      <nz-modal
+          [(nzVisible)]="isVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()"
+          nzOkText="Add Record"
+          [nzOkLoading]="isConfirmLoading"
+        >
+          <ng-template #modalTitle>Add Tests</ng-template>
+
+          <ng-template #modalContent>
+            <div class="modal-form">
+              <div class="modal-form">
+                <input nz-input placeholder="Patient Id" [(ngModel)]="testsRecord.patientId"/>
+                <div class="tests" *ngFor="let report of testsRecord.reports; let i = index">
+                  <input nz-input placeholder="Test Name" [(ngModel)]="testsRecord.reports[i].testName"/>
+                  <input nz-input placeholder="Test Result" [(ngModel)]="testsRecord.reports[i].testResult"/>
+                </div>
+                <button nz-button nzType="primary" (click)="addTest()">
+                  <span nz-icon nzType="plus"></span>
+                  Add Test
+                </button>
+              </div>
+            </div>
+          </ng-template>
+      </nz-modal>
+
+      <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+        <thead>
+          <tr>
+            <th nzCustomFilter>
+              Patient ID
+              <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="tableSearch">
+                <span nz-icon nzType="search"></span>
+              </nz-filter-trigger>
+            </th>
+            <th>Patient Name</th>
+            <th>Tests</th>
+            <th>Test Results</th>
+            <th
+            [nzSortFn]="sortTable"
+            >Last Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of nzTable.data" (click)="showDetails(data)">
+            <td>{{ data.patientId }}</td>
+            <td>{{ data.patientName }}</td>
+            <td>{{ getLabTests(data) }}</td>
+            <td>{{ getLabResults(data) }}</td>
+            <td>{{ data.labTests?.date | date }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <nz-dropdown-menu #tableSearch="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+          <div class="search-box">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="reset()">Reset</button>
+          </div>
+        </div>
+      </nz-dropdown-menu>
+    </div>
+</div>

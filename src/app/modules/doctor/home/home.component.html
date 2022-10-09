@@ -1,0 +1,86 @@
+<div class="container">
+
+    <nav>
+        <h2>{{ userDetails?.org }}</h2>
+        <div class="menu">
+          <h2 nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="menu"><span nz-icon nzType="menu" nzTheme="outline"></span></h2>
+          <nz-dropdown-menu  #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item><span class="icon" nz-icon nzType="idcard" nzTheme="outline"></span> {{userDetails?.userId}}</li>
+                <li nz-menu-item><span class="icon" nz-icon nzType="user" nzTheme="outline"></span> {{userDetails?.name}}</li>
+                <li nz-menu-item nzDanger (click)="logout()"><span class="icon" nz-icon nzType="logout" nzTheme="outline"></span> Logout</li>
+              </ul>
+          </nz-dropdown-menu>
+      </div>
+    </nav>
+    
+    <div class="patient-record">
+      
+        <div class="patient-record__header">
+            <h2>Patient Record</h2>
+            <button nz-button nzType="primary" (click)="showModal()">
+                <span nz-icon nzType="plus"></span>
+                Add Record
+            </button>
+        </div>
+
+        <nz-modal
+          [(nzVisible)]="isVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          (nzOnCancel)="handleCancel()"
+          (nzOnOk)="handleOk()"
+          nzOkText="Add Record"
+          [nzOkLoading]="isConfirmLoading"
+        >
+          <ng-template #modalTitle>Add Patient Record</ng-template>
+
+          <ng-template #modalContent>
+            <div class="modal-form">
+              <input nz-input placeholder="Patient Id" [(ngModel)]="patientRecord.patientId"/>
+              <input nz-input placeholder="Patient Name" [(ngModel)]="patientRecord.patientName"/>
+              <input nz-input placeholder="Symptoms" [(ngModel)]="patientRecord.symptoms"/>
+              <input nz-input placeholder="Diagnosis" [(ngModel)]="patientRecord.diagnosis"/>
+              <input nz-input placeholder="Prescription" [(ngModel)]="patientRecord.prescription">
+              <input nz-input placeholder="Status" [(ngModel)]="patientRecord.status"/>
+            </div>
+          </ng-template>
+        </nz-modal>
+
+        
+        <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+            <thead>
+              <tr>
+                <th nzCustomFilter>
+                  Patient ID
+                  <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="tableSearch">
+                    <span nz-icon nzType="search"></span>
+                  </nz-filter-trigger>
+                </th>
+                <th>Patient Name</th>
+                <th>symptoms</th>
+                <th>prescription</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of nzTable.data" (click)="showDetails(data)">
+                <td>{{ data.patientId }}</td>
+                <td>{{ data.patientName }}</td>
+                <td>{{ data.symptoms }}</td>
+                <td>{{ data.prescription }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+          <nz-dropdown-menu #tableSearch="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+              <div class="search-box">
+                <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                <button nz-button nzSize="small" (click)="reset()">Reset</button>
+              </div>
+            </div>
+          </nz-dropdown-menu>
+
+    </div>
+</div>

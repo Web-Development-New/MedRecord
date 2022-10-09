@@ -1,0 +1,17 @@
+.container{
+
+    &--titles{
+        font-size: larger;
+        font-weight: 600;
+        color: #555;
+        span{
+            margin-right: 5px;
+        }
+    }
+
+    &--values{
+        font-size: medium;
+        font-weight: 500;
+        color: #666;
+    }
+}

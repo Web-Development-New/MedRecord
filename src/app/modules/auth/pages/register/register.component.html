@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>REGISTER AS</h1>
+
+  <select [(ngModel)]="registerAs" (change)="resetInputs()">
+    <option value="patient">Patient</option>
+    <option value="doctor">Doctor</option>
+    <option value="lab">Laboratory</option>
+  </select>
+
+  <div class="form" id="patient">
+    <input nz-input placeholder="Enter Your Full Name" [(ngModel)]="user.name" />
+    <nz-date-picker *ngIf="isPatient" [(ngModel)]="user.birthDate" nzPlacement="bottomRight" (ngModelChange)="onChange($event)" nzPlaceHolder="Select Birthdate"></nz-date-picker>
+    <input *ngIf="isDoctor" nz-input placeholder="Enter Hospital Name" [(ngModel)]="user.org" />
+    <input
+      nz-input
+      *ngIf="isLab"
+      placeholder="Enter Laboratory Name"
+      [(ngModel)]="user.org"
+    />
+    <input nz-input placeholder="Enter Phone Number" [(ngModel)]="user.phone" />
+    <input nz-input placeholder="Enter Address" [(ngModel)]="user.address" />
+    <input
+      type="email"
+      nz-input
+      placeholder="Enter Email"
+      [(ngModel)]="user.email"
+    />
+    <input
+      type="password"
+      nz-input
+      placeholder="Enter Password"
+      [(ngModel)]="user.password"
+    />
+    <input
+      type="password"
+      nz-input
+      placeholder="Re-Enter Password"
+      [(ngModel)]="reEnteredPassword"
+    />
+    <button
+      nz-button
+      nzType="primary"
+      nzSize="large"
+      nzShape="round"
+      (click)="register()"
+    >
+      Register
+    </button>
+    <p>Already have an account? <a href="/auth/login">Login Here</a></p>
+  </div>
+</div>

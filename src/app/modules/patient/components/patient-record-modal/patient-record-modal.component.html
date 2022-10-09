@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Medical Reports</h2>
+    <p><span class="container--titles"><span nz-icon nzType="deployment-unit" nzTheme="outline"></span> Symptoms</span> - <span class="container--values">{{patientFullRecord?.symptoms}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="aim" nzTheme="outline"></span> Diagnosis</span> - <span class="container--values">{{patientFullRecord?.diagnosis}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="experiment" nzTheme="outline"></span> Lab Reports</span>
+    </p>
+    <div *ngIf="patientFullRecord.labTests">
+      <nz-table #basicTable [nzData]="patientFullRecord.labTests.reports">
+        <thead>
+          <tr>
+            <th>Report Name</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of patientFullRecord.labTests.reports">
+            <td>{{ data.testName }}</td>
+            <td>{{ data.testResult }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>  
+    <p><span class="container--titles"><span nz-icon nzType="medicine-box" nzTheme="outline"></span> Prescription</span> - <span class="container--values">{{patientFullRecord?.prescription}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="info-circle" nzTheme="outline"></span> Status</span> - <span class="container--values">{{patientFullRecord?.status}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="clock-circle" nzTheme="outline"></span> Date</span> - <span class="container--values">{{patientFullRecord?.date}}</span></p>
+
+    <h2>Hospital Details</h2>
+    <p><span class="container--titles"><span nz-icon nzType="plus-circle" nzTheme="outline"></span> Hospital Name</span> - <span class="container--values">{{patientFullRecord?.hospitalName}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="user-add" nzTheme="outline"></span> Doctor Name</span> - <span class="container--values">{{patientFullRecord?.doctorName}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="environment" nzTheme="outline"></span> Hosptial Address</span> - <span class="container--values">{{patientFullRecord?.hospitalAddress}}</span></p>
+    <p><span class="container--titles"><span nz-icon nzType="phone" nzTheme="outline"></span> Hosptial Contact</span> - <span class="container--values">{{patientFullRecord?.hospitalContact}}</span></p>
+
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Login</h1>
+  
+    <div class="form" id="patient">
+      <input
+        type="email"
+        nz-input
+        placeholder="Enter Email"
+        [(ngModel)]="user.email"
+      />
+      <input
+        type="password"
+        nz-input
+        placeholder="Enter Password"
+        [(ngModel)]="user.password"
+      />
+      
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        nzShape="round"
+        (click)="login()"
+      >
+        Login
+      </button>
+
+      <p>Don't have an account? <a href="/auth/register">Register Here</a></p>
+
+    </div>
+  
+  </div>
+  

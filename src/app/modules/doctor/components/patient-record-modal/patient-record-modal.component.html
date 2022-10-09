@@ -1,0 +1,25 @@
+<div class="container">
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="idcard" nzTheme="outline"></span> ID</span> - <span class="desc-content-template--values">{{patientRecord?.patientId}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="user" nzTheme="outline"></span> Name</span> - <span class="desc-content-template--values">{{patientRecord?.patientName}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="deployment-unit" nzTheme="outline"></span> Symptoms</span> - <span class="desc-content-template--values">{{patientRecord?.symptoms}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="aim" nzTheme="outline"></span> Diagnosis</span> - <span class="desc-content-template--values">{{patientRecord?.diagnosis}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="experiment" nzTheme="outline"></span> Lab Reports</span>
+    </p>
+    <nz-table #basicTable [nzData]="labRecords" *ngIf="labRecords.length > 0">
+        <thead>
+          <tr>
+            <th>Report Name</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.testName }}</td>
+            <td>{{ data.testResult }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="medicine-box" nzTheme="outline"></span> Prescription</span> - <span class="desc-content-template--values">{{patientRecord?.prescription}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="info-circle" nzTheme="outline"></span> Status</span> - <span class="desc-content-template--values">{{patientRecord?.status}}</span></p>
+    <p><span class="desc-content-template--titles"><span nz-icon nzType="clock-circle" nzTheme="outline"></span> Date</span> - <span class="desc-content-template--values">{{patientRecord?.date}}</span></p>
+</div>

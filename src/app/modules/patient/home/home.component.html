@@ -1,0 +1,40 @@
+<div class="container">
+    <nav>
+        <h2>Patient Panel</h2>
+        <div class="menu">
+            <h2 nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="menu"><span nz-icon nzType="menu" nzTheme="outline"></span></h2>
+            <nz-dropdown-menu  #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                  <li nz-menu-item><span class="icon" nz-icon nzType="idcard" nzTheme="outline"></span> {{userDetails?.userId}}</li>
+                  <li nz-menu-item><span class="icon" nz-icon nzType="user" nzTheme="outline"></span> {{userDetails?.name}}</li>
+                  <li (click)="logout()" nz-menu-item nzDanger><span class="icon" nz-icon nzType="logout" nzTheme="outline"></span> Logout</li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Your Records</h1>
+
+        <nz-table class="record-table" #basicTable [nzData]="patientRecords">
+            <thead>
+              <tr>
+                <th>Symtoms</th>
+                <th>diagnosis</th>
+                <th>prescription</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data" (click)="showModal(data)">
+                <td>{{ data.symptoms }}</td>
+                <td>{{ data.diagnosis }}</td>
+                <td>{{ data.prescription }}</td>
+                <td>{{ data.date }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+    </div>
+    
+</div>
